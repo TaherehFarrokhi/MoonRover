@@ -8,9 +8,6 @@ namespace MoonRover
     {
         private const int ForwardStep = 1;
         private const int BackwardStep = -1;
-        private readonly int _gridHeight;
-        private readonly int _gridWidth;
-        private readonly PlutoRover _rover;
 
         private readonly Dictionary<Direction, (Direction Left, Direction Right)> _directionMap =
             new()
@@ -21,22 +18,28 @@ namespace MoonRover
                 {Direction.E, (Direction.N, Direction.S)}
             };
 
+        private readonly int _gridHeight;
+        private readonly int _gridWidth;
+        private readonly PlutoRover _rover;
+
         public PlutoController(int gridHeight, int gridWidth)
         {
             if (gridHeight <= 0) throw new ArgumentOutOfRangeException(nameof(gridHeight));
             if (gridWidth <= 0) throw new ArgumentOutOfRangeException(nameof(gridWidth));
             _gridHeight = gridHeight;
             _gridWidth = gridWidth;
-            _rover = new PlutoRover("Rover", new Location(0,0, Direction.N));
+            _rover = new PlutoRover("Rover", new Location(0, 0, Direction.N));
         }
 
         public PlutoRover ExecuteCommand(string command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
-           
+
             var operations = command.ToUpper().ToCharArray().ToList();
-            operations.ForEach(operation => {
-                switch (operation) {
+            operations.ForEach(operation =>
+            {
+                switch (operation)
+                {
                     case Operations.TurnLeft:
                     case Operations.TurnRight:
                         ChangeDirection(operation);
@@ -63,7 +66,15 @@ namespace MoonRover
                 _ => (_rover.Location.X, _rover.Location.Y)
             };
 
-            _rover.Location = _rover.Location with { X = x, Y = y};
+            _rover.Location = _rover.Location with
+            {
+                X = JustifyCoordinate(x, _gridWidth), Y = JustifyCoordinate(y, _gridHeight)
+            };
+        }
+
+        private int JustifyCoordinate(int coordinate, int max)
+        {
+            return coordinate < 0 ? max : coordinate > max ? 0 : coordinate;
         }
 
         private void ChangeDirection(char operation)
@@ -74,7 +85,7 @@ namespace MoonRover
                 Operations.TurnRight => _directionMap[_rover.Location.Direction].Right,
                 _ => _rover.Location.Direction
             };
-            _rover.Location = _rover.Location with { Direction = direction };
+            _rover.Location = _rover.Location with {Direction = direction};
         }
     }
 }
