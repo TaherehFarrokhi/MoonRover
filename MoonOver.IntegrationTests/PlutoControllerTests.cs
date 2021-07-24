@@ -8,6 +8,7 @@ namespace MoonOver.IntegrationTests
     {
         [Theory]
         [InlineData("FFRFF", 2, 2, Direction.E)]
+        [InlineData("FFFRFFF", 3, 3, Direction.E)]
         public void ExecuteCommand_ShouldReturnTheRightLocation_WhenCommandIsValid(string command, int expectedX,
             int expectedY, Direction expectedDirection)
         {
@@ -18,6 +19,9 @@ namespace MoonOver.IntegrationTests
 
             // Assert
             actual.Should().NotBeNull();
+            actual.X.Should().Be(expectedX);
+            actual.Y.Should().Be(expectedY);
+            actual.Direction.Should().Be(expectedDirection);
         }
     }
 }
