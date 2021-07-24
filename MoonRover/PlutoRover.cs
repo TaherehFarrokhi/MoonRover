@@ -1,24 +1,13 @@
-﻿using System;
-using System.ComponentModel;
-
-namespace MoonRover
+﻿namespace MoonRover
 {
     public sealed class PlutoRover
     {
-        public PlutoRover(int x, int y, Direction direction)
+        public PlutoRover(string name, Location location)
         {
-            if (x < 0) throw new ArgumentOutOfRangeException(nameof(x));
-            if (y < 0) throw new ArgumentOutOfRangeException(nameof(y));
-            if (!Enum.IsDefined(typeof(Direction), direction))
-                throw new InvalidEnumArgumentException(nameof(direction), (int) direction, typeof(Direction));
-            
-            X = x;  
-            Y = y;
-            Direction = direction;
+            Name = name;
+            Location = location;
         }
-
-        public int X { get; set;}
-        public int Y { get; set;}
-        public Direction Direction { get; set; }
+        public string Name { get; }
+        public Location Location { get; set; }
     }
 }

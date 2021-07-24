@@ -13,15 +13,15 @@ namespace MoonOver.IntegrationTests
             int expectedY, Direction expectedDirection)
         {
             // Arrange
+            var expectedLocation = new Location(expectedX, expectedY, expectedDirection);
             var sut = new PlutoController(100, 100);
+            
             // Act
             var actual = sut.ExecuteCommand(command);
 
             // Assert
             actual.Should().NotBeNull();
-            actual.X.Should().Be(expectedX);
-            actual.Y.Should().Be(expectedY);
-            actual.Direction.Should().Be(expectedDirection);
+            actual.Location.Should().Be(expectedLocation);
         }
     }
 }
