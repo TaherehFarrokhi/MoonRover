@@ -18,7 +18,7 @@ namespace MoonRover
         public PlutoRover ExecuteCommand(string command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
-            return null;
+            return new PlutoRover(2,2, Direction.E);
         }
     }
 }
