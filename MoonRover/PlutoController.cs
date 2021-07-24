@@ -21,22 +21,22 @@ namespace MoonRover
         private readonly int _gridHeight;
         private readonly int _gridWidth;
         private readonly PlutoRover _rover;
-
+        private readonly List<Location> _obstacles = new ();
         public PlutoController(int gridHeight, int gridWidth)
         {
             if (gridHeight <= 0) throw new ArgumentOutOfRangeException(nameof(gridHeight));
             if (gridWidth <= 0) throw new ArgumentOutOfRangeException(nameof(gridWidth));
             _gridHeight = gridHeight;
             _gridWidth = gridWidth;
-            _rover = new PlutoRover("Rover", new Location(0, 0, Direction.N));
+            _rover = new PlutoRover("Rover", new Position(0, 0, Direction.N));
         }
 
-        public PlutoRover ExecuteCommand(string command)
+        public CommandResult ExecuteCommand(string command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
 
-            var operations = command.ToUpper().ToCharArray().ToList();
-            operations.ForEach(operation =>
+            var operations = command.ToUpper().ToCharArray();
+            foreach (var operation in operations)
             {
                 switch (operation)
                 {
@@ -45,31 +45,37 @@ namespace MoonRover
                         ChangeDirection(operation);
                         break;
                     case Operations.Forward:
-                        Move(ForwardStep);
+                        var (successForward, targetForward) = Move(ForwardStep);
+                        if (!successForward)
+                            return CommandResult.Error(_rover.Position, $"Rover encountered an obstacle in {targetForward.X}, {targetForward.Y}");
                         break;
                     case Operations.Backward:
-                        Move(BackwardStep);
+                        var (successBackward, targetBackward) = Move(BackwardStep);
+                        if (!successBackward)
+                            return CommandResult.Error(_rover.Position, $"Rover encountered an obstacle in {targetBackward.X}, {targetBackward.Y}");
                         break;
                 }
-            });
-            return _rover;
+            }
+            return CommandResult.Success(_rover.Position);
         }
 
-        private void Move(int step)
+        private (bool Sucess, Location Location) Move(int step)
         {
-            var (x, y) = _rover.Location.Direction switch
+            var (x, y) = _rover.Position.Direction switch
             {
-                Direction.N => (_rover.Location.X, _rover.Location.Y + step),
-                Direction.E => (_rover.Location.X + step, _rover.Location.Y),
-                Direction.S => (_rover.Location.X, _rover.Location.Y - step),
-                Direction.W => (_rover.Location.X - step, _rover.Location.Y),
-                _ => (_rover.Location.X, _rover.Location.Y)
+                Direction.N => (_rover.Position.X, _rover.Position.Y + step),
+                Direction.E => (_rover.Position.X + step, _rover.Position.Y),
+                Direction.S => (_rover.Position.X, _rover.Position.Y - step),
+                Direction.W => (_rover.Position.X - step, _rover.Position.Y),
+                _ => (_rover.Position.X, _rover.Position.Y)
             };
-
-            _rover.Location = _rover.Location with
-            {
-                X = JustifyCoordinate(x, _gridWidth), Y = JustifyCoordinate(y, _gridHeight)
-            };
+            
+            var target = new Location(JustifyCoordinate(x, _gridWidth), JustifyCoordinate(y, _gridHeight));
+            if(_obstacles.Any(obstacle => obstacle.X == target.X && obstacle.Y == target.Y))
+                return (false, target);
+            
+            _rover.Position = _rover.Position with {X = target.X, Y = target.Y};
+            return (true, target);
         }
 
         private int JustifyCoordinate(int coordinate, int max)
@@ -81,11 +87,16 @@ namespace MoonRover
         {
             var direction = operation switch
             {
-                Operations.TurnLeft => _directionMap[_rover.Location.Direction].Left,
-                Operations.TurnRight => _directionMap[_rover.Location.Direction].Right,
-                _ => _rover.Location.Direction
+                Operations.TurnLeft => _directionMap[_rover.Position.Direction].Left,
+                Operations.TurnRight => _directionMap[_rover.Position.Direction].Right,
+                _ => _rover.Position.Direction
             };
-            _rover.Location = _rover.Location with {Direction = direction};
+            _rover.Position = _rover.Position with {Direction = direction};
+        }
+
+        public void AddObstacle(int x, int y)
+        {
+            _obstacles.Add(new Location(x, y));
         }
     }
 }

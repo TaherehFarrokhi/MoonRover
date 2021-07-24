@@ -16,7 +16,7 @@ namespace MoonOver.IntegrationTests
             int expectedY, Direction expectedDirection)
         {
             // Arrange
-            var expectedLocation = new Location(expectedX, expectedY, expectedDirection);
+            var expectedLocation = new Position(expectedX, expectedY, expectedDirection);
             var sut = new PlutoController(100, 100);
             
             // Act
@@ -24,7 +24,7 @@ namespace MoonOver.IntegrationTests
 
             // Assert
             actual.Should().NotBeNull();
-            actual.Location.Should().Be(expectedLocation);
+            actual.Position.Should().Be(expectedLocation);
         }
         
         [Theory]
@@ -35,7 +35,7 @@ namespace MoonOver.IntegrationTests
             int expectedY, Direction expectedDirection)
         {
             // Arrange
-            var expectedLocation = new Location(expectedX, expectedY, expectedDirection);
+            var expectedLocation = new Position(expectedX, expectedY, expectedDirection);
             var sut = new PlutoController(100, 100);
             
             // Act
@@ -43,7 +43,7 @@ namespace MoonOver.IntegrationTests
 
             // Assert
             actual.Should().NotBeNull();
-            actual.Location.Should().Be(expectedLocation);
+            actual.Position.Should().Be(expectedLocation);
         }
         
         [Theory]
@@ -55,7 +55,7 @@ namespace MoonOver.IntegrationTests
             int expectedY, Direction expectedDirection)
         {
             // Arrange
-            var expectedLocation = new Location(expectedX, expectedY, expectedDirection);
+            var expectedLocation = new Position(expectedX, expectedY, expectedDirection);
             var sut = new PlutoController(100, 100);
             
             // Act
@@ -63,7 +63,27 @@ namespace MoonOver.IntegrationTests
 
             // Assert
             actual.Should().NotBeNull();
-            actual.Location.Should().Be(expectedLocation);
+            actual.Position.Should().Be(expectedLocation);
+        }
+        
+        [Theory]
+        [InlineData("FFFrFFf", 0, 1, Direction.N)]
+        public void ExecuteCommand_ShouldReturnTheLastLocationAndReportTheObstacle_WhenRoverEncounterAnObstacle(string command, int expectedX,
+            int expectedY, Direction expectedDirection)
+        {
+            // Arrange
+            var expectedLocation = new Position(expectedX, expectedY, expectedDirection);
+            var sut = new PlutoController(100, 100);
+            sut.AddObstacle(0, 2);
+            
+            // Act
+            var actual = sut.ExecuteCommand(command);
+
+            // Assert
+            actual.Should().NotBeNull();
+            actual.Position.Should().Be(expectedLocation);
+            actual.Failed.Should().BeTrue();
+            actual.FailedReason.Should().Be("Rover encountered an obstacle in 0, 2");
         }
     }
 }

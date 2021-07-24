@@ -2,12 +2,12 @@
 {
     public sealed class PlutoRover
     {
-        public PlutoRover(string name, Location location)
+        public PlutoRover(string name, Position position)
         {
             Name = name;
-            Location = location;
+            Position = position;
         }
         public string Name { get; }
-        public Location Location { get; set; }
+        public Position Position { get; set; }
     }
 }
