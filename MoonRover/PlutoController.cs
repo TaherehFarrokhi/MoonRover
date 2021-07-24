@@ -34,7 +34,7 @@ namespace MoonRover
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
            
-            var operations = command.ToCharArray().ToList();
+            var operations = command.ToUpper().ToCharArray().ToList();
             operations.ForEach(operation => {
                 switch (operation) {
                     case Operations.TurnLeft:
