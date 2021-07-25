@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace MoonRover
 {
-    public sealed class PlutoController
+    public sealed class PlutoController : IPlutoController
     {
         private readonly PlutoEnvironment _environment;
         private readonly IDirectionCalculator _directionCalculator;

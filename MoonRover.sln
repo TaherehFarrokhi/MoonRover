@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonRover.UnitTests", "Moon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonRover.IntegrationTests", "MoonRover.IntegrationTests\MoonRover.IntegrationTests.csproj", "{65A3B77D-FDBB-4E82-8DF5-F81F91112594}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonRover.CLI", "MoonRover.CLI\MoonRover.CLI.csproj", "{CDB7B406-699B-4556-A9B8-21CBA463FF48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{65A3B77D-FDBB-4E82-8DF5-F81F91112594}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65A3B77D-FDBB-4E82-8DF5-F81F91112594}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65A3B77D-FDBB-4E82-8DF5-F81F91112594}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDB7B406-699B-4556-A9B8-21CBA463FF48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDB7B406-699B-4556-A9B8-21CBA463FF48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDB7B406-699B-4556-A9B8-21CBA463FF48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDB7B406-699B-4556-A9B8-21CBA463FF48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
