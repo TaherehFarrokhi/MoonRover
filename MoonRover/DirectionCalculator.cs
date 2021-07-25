@@ -20,7 +20,7 @@ namespace MoonRover
             if (!Enum.IsDefined(typeof(Direction), current))
                 throw new InvalidEnumArgumentException(nameof(current), (int) current, typeof(Direction));
             
-            return operation switch
+            return char.ToUpperInvariant(operation) switch
             {
                 Operations.TurnLeft => _directionMap[current].Left,
                 Operations.TurnRight => _directionMap[current].Right,

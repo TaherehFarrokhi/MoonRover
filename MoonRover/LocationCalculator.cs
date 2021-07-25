@@ -15,7 +15,7 @@ namespace MoonRover
         
         public Location CalculateLocation(char operation, Position current)
         {
-            return operation switch
+            return char.ToUpperInvariant(operation) switch
             {
                 Operations.Backward => CalculateNewLocation(BackwardStep, current),
                 Operations.Forward => CalculateNewLocation(ForwardStep, current),
