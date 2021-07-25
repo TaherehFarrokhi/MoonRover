@@ -17,7 +17,8 @@ namespace MoonOver.IntegrationTests
         {
             // Arrange
             var expectedLocation = new Position(expectedX, expectedY, expectedDirection);
-            var sut = new PlutoController(100, 100);
+            var environment = new PlutoEnvironment(100, 100);
+            var sut = new PlutoController(environment, new DirectionCalculator(), new LocationCalculator(environment));
             
             // Act
             var actual = sut.ExecuteCommand(command);
@@ -36,7 +37,8 @@ namespace MoonOver.IntegrationTests
         {
             // Arrange
             var expectedLocation = new Position(expectedX, expectedY, expectedDirection);
-            var sut = new PlutoController(100, 100);
+            var environment = new PlutoEnvironment(100, 100);
+            var sut = new PlutoController(environment, new DirectionCalculator(), new LocationCalculator(environment));
             
             // Act
             var actual = sut.ExecuteCommand(command);
@@ -56,7 +58,8 @@ namespace MoonOver.IntegrationTests
         {
             // Arrange
             var expectedLocation = new Position(expectedX, expectedY, expectedDirection);
-            var sut = new PlutoController(100, 100);
+            var environment = new PlutoEnvironment(100, 100);
+            var sut = new PlutoController(environment, new DirectionCalculator(), new LocationCalculator(environment));
             
             // Act
             var actual = sut.ExecuteCommand(command);
@@ -73,8 +76,9 @@ namespace MoonOver.IntegrationTests
         {
             // Arrange
             var expectedLocation = new Position(expectedX, expectedY, expectedDirection);
-            var sut = new PlutoController(100, 100);
-            sut.AddObstacle(0, 2);
+            var environment = new PlutoEnvironment(100, 100);
+            environment.AddObstacle(0, 2);
+            var sut = new PlutoController(environment, new DirectionCalculator(), new LocationCalculator(environment));
             
             // Act
             var actual = sut.ExecuteCommand(command);
