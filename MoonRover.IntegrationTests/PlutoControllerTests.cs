@@ -1,8 +1,7 @@
 using FluentAssertions;
-using MoonRover;
 using Xunit;
 
-namespace MoonOver.IntegrationTests
+namespace MoonRover.IntegrationTests
 {
     public class PlutoControllerTests
     {

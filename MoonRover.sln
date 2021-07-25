@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonRover", "MoonRover\Moon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonRover.UnitTests", "MoonRover.UnitTests\MoonRover.UnitTests.csproj", "{BD80CD43-86F1-47FB-8955-7F152169B18C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonOver.IntegrationTests", "MoonOver.IntegrationTests\MoonOver.IntegrationTests.csproj", "{65A3B77D-FDBB-4E82-8DF5-F81F91112594}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonRover.IntegrationTests", "MoonRover.IntegrationTests\MoonRover.IntegrationTests.csproj", "{65A3B77D-FDBB-4E82-8DF5-F81F91112594}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
